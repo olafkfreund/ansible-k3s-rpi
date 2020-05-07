@@ -9,5 +9,5 @@ auto_up_disable: false
 #minor = Minor updates are enabled, development, and major updates are disabled
 core_update_level: true
 
-ssh_user: pi
+ssh_user: ubuntu
 ssh_identity_key: ~/.ssh/id_rsa.pub
