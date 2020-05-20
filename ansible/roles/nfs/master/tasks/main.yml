@@ -1,26 +1,42 @@
 ---
-- hosts: nfs_server
-  remote_user: ubuntu
-  sudo: yes
+- name: Ensure NFS utilities are installed.
+  apt:
+    name:
+      - nfs-common
+      - nfs-kernel-server
+    state: present
 
-  tasks:
-    - name: Create mountable dir
-      file: path=/mnt/disk01 state=directory mode=777 owner=root group=root
+- name: Create mountable dir
+  file:
+    path: /mnt/disk01
+    state: directory
+    mode: 777
+    owner: ubuntu
+    group: ubuntu
 
-    - name: make sure the mount drive has a filesystem
-      filesystem: fstype=ext4 dev={{ mountable_share_drive | default('/dev/sda') }}
+- name: make sure the mount drive has a filesystem
+  filesystem:
+    fstype: ext4
+    dev: "{{ mountable_share_drive | default('/dev/sda') }}"
 
-    - name: set mountpoints
-      mount: name=/mnt/disk01 src={{ mountable_share_drive | default('/dev/sda') }} fstype=auto opts=defaults,nobootwait dump=0 passno=2 state=mounted
+- name: set mountpoints
+  mount:
+    name: /mnt/disk01
+    src: "{{ mountable_share_drive | default('/dev/sda') }}"
+    fstype: ext4
+    opts: defaults
+    dump: '0'
+    passno: '0'
+    state: mounted
 
-    - name: Ensure NFS utilities are installed.
-      apt: name={{ item }} state=installed update_cache=yes
-      with_items:
-        - nfs-common
-        - nfs-kernel-server
+- name: copy /etc/exports
+  template:
+      src: exports.j2
+      dest: /etc/exports
+      owner: ubuntu
+      group: ubuntu
 
-    - name: copy /etc/exports
-      template: src=exports.j2 dest=/etc/exports owner=root group=root
-
-    - name: restart nfs server
-      service: name=nfs-kernel-server state=restarted
+- name: restart nfs server
+  service:
+    name: nfs-kernel-server
+    state: restarted

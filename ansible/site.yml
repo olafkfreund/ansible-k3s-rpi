@@ -4,19 +4,18 @@
   gather_facts: yes
   become: yes
   roles:
-    - role: prereq
     - role: download
     - role: ubuntu
     - role: housekeeping
 
 
-- hosts: master
+- hosts: k8smaster
   become: yes
   roles:
     - role: k3s/master
     - role: nfs/master
 
-- hosts: node
+- hosts: k8snodes
   become: yes
   roles:
     - role: k3s/node

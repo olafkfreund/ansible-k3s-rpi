@@ -6,6 +6,11 @@
       create: yes
       block: |
         127.0.0.1 localhost
+        k8smaster 192.168.68.142
+        k8snode01 192.168.68.141
+        k8snode02 192.168.68.129
+        k8snode03 192.168.68.149
+        k8snode04 192.168.68.150
 
         # The following lines are desirable for IPv6 capable hosts
         ::1 ip6-localhost ip6-loopback
@@ -14,7 +19,3 @@
         ff02::1 ip6-allnodes
         ff02::2 ip6-allrouters
         ff02::3 ip6-allhosts
-
-        {% for item in ansible_play_batch %}
-        {{ hostvars[item].ansible_host }}   {{ item }}
-        {% endfor %}

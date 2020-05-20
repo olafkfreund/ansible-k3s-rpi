@@ -5,8 +5,8 @@
   template:
     src: "k3s.service.j2"
     dest: "{{ systemd_dir }}/k3s.service"
-    owner: root
-    group: root
+    owner: ubuntu
+    group: ubuntu
     mode: 0755
 
 - name: Enable and check K3s service
