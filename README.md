@@ -1,8 +1,7 @@
 This Ansible playbook turns your fleet of Raspberry Pi into Kubernetes cattle with k3s, the streamlined version of Kubernetes by @rancher that runs silky smooth on the ARM processor powering your Pi.
 
 # Manually prepare your Raspberries
-- Burn Raspian Stretch Lite on an SD card with EtcherBalena, or something alike
-- Create an empty `ssh` file in the root of the SD card (volume is called `boot`)
+- Install ubuntu
 
 # Secure your Raspberries
 Optional but advisable: use SSH key auth and disable password login.
@@ -11,10 +10,9 @@ The default ssh credentials for a Raspberry Pi are username `ubuntu` and passwor
 - In `/etc/ssh/sshd_config` on the Pi, set `PasswordAuthentication` to `no`
 
 # Configure ansible setup
-- Copy `ansible/hosts.template` to `ansible/hosts` for your configuration
 - Choose one of the Raspberries to lead / orchestrate your cluster; we'll call this the _server_
-- In `ansible/hosts`, fill out the ip or hostname for the leading Raspberry under `[k3s-server]`
-- Fill out the ip's or hostnames for the rest of your cattle under `[k3s-agents]`
+- In `inventory/hosts`, fill out the ip or hostname for the leading Raspberry under `[k8smaster]`
+- Fill out the ip's or hostnames for the rest of your cattle under `[k8snodes]`
 
 I personally prefer using the Pi's hardware mac address to assign a hostname and ip address within the LAN by DHCP, but you could also set a static ip address on the Pi.
 
