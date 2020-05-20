@@ -11,3 +11,4 @@ core_update_level: true
 
 ssh_user: ubuntu
 ssh_identity_key: ~/.ssh/id_rsa.pub
+systemd_dir: /etc/systemd/system

@@ -1,8 +1,0 @@
-[k3s-server]
-k8smaster.home.freundcloud.org.uk
-
-[k3s-agents]
-k8snode01.home.freundcloud.org.uk
-k8snode02.home.freundcloud.org.uk
-k8snode03.home.freundcloud.org.uk
-k8snode04.home.freundcloud.org.uk

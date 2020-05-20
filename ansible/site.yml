@@ -1,37 +1,23 @@
 ---
-- name: Provision k3s nodes
-  hosts: k3s-server:k3s-agents
-  remote_user: ubuntu
+
+- hosts: k3s_cluster
+  gather_facts: yes
   become: yes
-  become_user: root
-
   roles:
-    - common
-    - { role: k3s-common, tags: common }
+    - role: prereq
+    - role: download
+    - role: ubuntu
+    - role: housekeeping
 
-- name: Provision k3s server node
-  hosts: k3s-server
-  remote_user: ubuntu
+
+- hosts: master
   become: yes
-  become_user: root
-
   roles:
-    - { role: k3s-server, tags: server }
+    - role: k3s/master
+    - role: nfs/master
 
-- name: Get k3s server config for all nodes
-  hosts: all
-  remote_user: ubuntu
+- hosts: node
   become: yes
-  become_user: root
-
   roles:
-    - { role: k3s-config, tags: config }
-
-- name: Provision k3s agent nodes
-  hosts: k3s-agents
-  remote_user: ubuntu
-  become: yes
-  become_user: root
-
-  roles:
-    - { role: k3s-agent, tags: agent }
+    - role: k3s/node
+    - role: k3s/node
