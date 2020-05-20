@@ -31,10 +31,10 @@
 
 - name: copy /etc/exports
   template:
-      src: exports.j2
-      dest: /etc/exports
-      owner: ubuntu
-      group: ubuntu
+    src: exports.j2
+    dest: /etc/exports
+    owner: ubuntu
+    group: ubuntu
 
 - name: restart nfs server
   service:
