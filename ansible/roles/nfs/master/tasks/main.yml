@@ -10,7 +10,7 @@
   file:
     path: /mnt/disk01
     state: directory
-    mode: 777
+    mode: 0777
     owner: ubuntu
     group: ubuntu
 

@@ -11,14 +11,14 @@
   file:
     path: /mnt/disk01
     state: directory
-    mode: 777
+    mode: 0777
     owner: ubuntu
     group: ubuntu
 
 - name: set mountpoints
   mount:
     name: /mnt/disk01
-    src: "{{hostvars[groups['k8smaster'][0]]['ansible_eth0']['ipv4']['address']}}:/mnt/disk01"
+    src: "{{ hostvars[groups['k8smaster'][0]]['ansible_eth0']['ipv4']['address'] }}:/mnt/disk01"
     fstype: nfs
     opts: defaults
     dump: '0'
